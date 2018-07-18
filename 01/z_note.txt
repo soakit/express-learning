@@ -1,0 +1,2 @@
+通过手工方式安装
+npm i express

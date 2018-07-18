@@ -1,0 +1,13 @@
+warning: option `--ejs' has been renamed to `--view=ejs'
+
+
+express-generator内
+
+查看帮助
+ ./node_modules/.bin/express -h
+
+生成项目
+ ./node_modules/.bin/express --view=ejs .
+
+
+node bin/www.js
