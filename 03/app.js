@@ -1,41 +1,49 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var express = require('express')
+var router = express.Router()
+var subRouter = express.Router()
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var app = express()
+// 自定义中间件
+function myMiddleware(req, res, next) {
+    req.log = function(info) {
+        console.log(info)
+    }
+    next()
+}
+app.use(myMiddleware)
 
-var app = express();
+// 默认路由
+app.get('/', function(req, res) {
+    req.log('调用了' + req.originalUrl)
+    res.send('hello world')
+})
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+router.use(myMiddleware)
+// 一级路由
+router.get('/', function(req, res) {
+    req.log('调用了' + req.originalUrl)
+    res.send('route1 root')
+})
+router.get('/children', function(req, res) {
+    req.log('调用了' + req.originalUrl)
+    res.send('route1 children')
+})
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// 二级路由
+subRouter.get('/', function(req, res) {
+    res.send('sub Router')
+})
+router.use('/sub', subRouter)
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// 内置的中间件
+app.use('/route1', router)
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
+app.listen(3000, function(err) {
+    if (err) {
+        console.log(err)
+        return
+    }
+    console.log('listening 3000!')
+})
