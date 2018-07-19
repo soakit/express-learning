@@ -1,13 +1,16 @@
 warning: option `--ejs' has been renamed to `--view=ejs'
 
 
-express-generator��
+express-generator内
 
-�鿴����
+查看帮助
  ./node_modules/.bin/express -h
 
-������Ŀ
+生成项目
  ./node_modules/.bin/express --view=ejs .
 
+
+服务端支持非GET、POST之外的方法
+method-override中间件
 
 node bin/www.js
