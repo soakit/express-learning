@@ -1,4 +1,12 @@
 express框架组件
 
-router
+自定义路由(如创建子路由)
+    router
+        mergeParams 从父路由合并params
+        caseSensitive 大小写敏感
+        strict 严格匹配模式
+内置路由
+    app.set('strict routing', true)
+    app.set('case sensitive routing', true)
+
 middleware
