@@ -5,6 +5,20 @@ express框架组件
         mergeParams 从父路由合并params
         caseSensitive 大小写敏感
         strict 严格匹配模式
+    链式调用
+        router.route('/test').get(function(req, res, next) {
+            console.log('one')
+            next()
+        }).get(function(req, res) {
+            console.log('two')
+            res.send('ok')
+        }).post(function(req, res, next) {
+            console.log('three')
+            next()
+        }).get(function(req, res) {
+            console.log('four')
+            res.send('ok')
+        })
 内置路由
     app.set('strict routing', true)
     app.set('case sensitive routing', true)
