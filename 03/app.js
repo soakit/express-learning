@@ -1,3 +1,4 @@
+var db = require('./db')
 var express = require('express')
 var router = express.Router()
 var subRouter = express.Router()
@@ -39,6 +40,14 @@ router.use('/sub', subRouter)
 // 内置的中间件
 app.use('/route1', router)
 
+// get post请求都处理
+app.all('/allHttp', function(req, res) {
+    res.send('all handler')
+})
+
+app.get('/user/:id', db.getUserById, function(req, res) {
+    res.send(req.user)
+})
 
 app.listen(3000, function(err) {
     if (err) {
