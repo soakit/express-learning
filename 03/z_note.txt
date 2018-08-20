@@ -28,3 +28,6 @@ middleware
 use与http动词方法的区别
 use适用于为当前路由加入中间件和子路由
 http动词方法适用于为当前路由添加路径处理器
+
+express静态站点
+express.static方法
